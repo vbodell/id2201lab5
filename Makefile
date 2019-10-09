@@ -1,5 +1,5 @@
 compile:
-	@printf "c(test).\nc(node1).\nc(key).\nhalt()." > compile
+	@printf "c(test).\nc(node1).\nc(key).\nc(node2).\nc(storage).\nhalt()." > compile
 	erl < compile
 	@rm compile
 
