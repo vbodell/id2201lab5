@@ -1,0 +1,4 @@
+N1 = test:start(node1).
+test:start(node1, 10, N1).
+timer:sleep(10000).
+N1 ! probe.

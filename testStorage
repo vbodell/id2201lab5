@@ -1,0 +1,15 @@
+A = storage:create().
+A1 = storage:add(2, a, A).
+A2 = storage:add(4, b, A1).
+A3 = storage:add(6, c, A2).
+A4 = storage:add(8, d, A3).
+A5 = storage:add(9, e, A4).
+A5.
+
+storage:lookup(4, A5).
+storage:lookup(3, A5).
+
+{B1, C1} = storage:split(3, 6, A5).
+storage:split(1, 6, A5).
+
+storage:merge(B1, C1).

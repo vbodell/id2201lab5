@@ -1,0 +1,27 @@
+P1 = node1:start(50).
+timer:sleep(5000).
+P1 ! mychain.
+P2 = node1:start(20, P1).
+timer:sleep(5000).
+P1 ! mychain.
+P2 ! mychain.
+
+P3 = node1:start(80, P1).
+timer:sleep(5000).
+P1 ! mychain.
+P2 ! mychain.
+P3 ! mychain.
+P1 ! probe.
+
+P4 = node1:start(10, P3).
+timer:sleep(5000).
+P1 ! mychain.
+P2 ! mychain.
+P3 ! mychain.
+P4 ! mychain.
+timer:sleep(5000).
+P1 ! mychain.
+P2 ! mychain.
+P3 ! mychain.
+P4 ! mychain.
+P4 ! probe.

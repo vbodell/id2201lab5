@@ -1,0 +1,17 @@
+P1 = node1:start(50).
+timer:sleep(1000).
+P1 ! mychain.
+P2 = node1:start(45, P1).
+timer:sleep(1000).
+P1 ! mychain.
+P2 ! mychain.
+
+f().
+
+P1 = node1:start(50).
+timer:sleep(1000).
+P1 ! mychain.
+P2 = node1:start(55, P1).
+timer:sleep(1000).
+P1 ! mychain.
+P2 ! mychain.
