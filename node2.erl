@@ -89,11 +89,25 @@ remove_probe(T, Nodes) ->
 forward_probe(Ref, T, Nodes, Id, {_, Spid}) ->
     Spid ! {probe, Ref, [Id|Nodes], T}.
 
-add(Key, Value, Qref, Client, Id, Predecessor, Successor, Store) ->
-    ok.
+add(Key, Value, Qref, Client, Id, {Pkey, _}, {_, Spid}, Store) ->
+    case key:between(Key, Pkey, Id) of
+        true ->
+            Client ! {Qref, ok},
+            storage:add(Key, Value, Store);
+        false ->
+            Spid ! {add, Key, Value, Qref, Client},
+            Store
+    end.
     
-lookup(Key, Qref, Client, Id, Predecessor, Successor, Store) ->
-    ok.
+lookup(Key, Qref, Client, Id, {Pkey, _}, Successor, Store) ->
+    case key:between(Key, Pkey, Id) of
+        true ->
+            Result = storage:lookup(Key, Store),
+            Client ! {Qref, Result};
+        false ->
+            {_, Spid} = Successor,
+            Spid ! {lookup, Key, Qref, Client}
+    end.
 
 request(Peer, Predecessor) ->
     case Predecessor of
